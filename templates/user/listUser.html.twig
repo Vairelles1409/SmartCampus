@@ -36,7 +36,7 @@
                             <td>{{ user.prenom}}</td>
                             <td>{{user.accountType}}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ path('modif_user',{'id':user.id}) }}">Modifier</a>
+                                <a class="btn btn-danger" href="{{ path('modif_user',{'id':user.id}) }}" style="background-color:blue;">Modifier</a>
                             </td>
                             <td>
                                 <a class="btn btn-danger" href="{{ path('supp_user',{'id':user.id}) }}">Supprimer</a>
