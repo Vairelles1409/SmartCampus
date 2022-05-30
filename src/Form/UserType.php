@@ -19,8 +19,8 @@ class UserType extends AbstractType
         $builder
         ->add('accounttype', ChoiceType::class, [
             'choices' => [
-                'Etudiant' => 'ET',
-                'Enseigant' => 'EN',
+                'Etudiant' => 'Etudiant',
+                'Enseigant' => 'Enseignant',
             ],
         'expanded' => true
         ]

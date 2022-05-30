@@ -1,7 +1,16 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-# index:
-#    path: /adduser
-#    controller: App\Controller\DefaultController::user
+
+index:
+   path: /index
+   controller: App\Controller\UserController::indexAdmin
+
+login:
+   path: /login
+   controller: App\Controller\SecurityController::login
+
+adduser:
+   path: /registration
+   controller: App\Controller\RegistrationController::adduser
 

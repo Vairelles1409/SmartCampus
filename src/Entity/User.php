@@ -175,7 +175,7 @@ class User implements UserInterface
      */
     public function setAccounttype($accountType)
     {
-        $this->accountType = "ET";
+        $this->accountType = $accountType;
         return $this;
         
     }
