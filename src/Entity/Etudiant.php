@@ -35,22 +35,27 @@ class Etudiant
     /**
      * @ORM\Column(type="string", length=200, nullable=true)
      */
+    private $niveauEtudiant;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+
+    private $filiereEtudiant;
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $optionEtudiant;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
     private $adresseEtudiant;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $telephoneEtudiant;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $login;
-
-    /**
-     * @ORM\Column(type="string", length=15)
-     */
-    private $password;
 
     public function getId(): ?int
     {
@@ -116,27 +121,40 @@ class Etudiant
 
         return $this;
     }
-    public function getLogin(): ?string
+    public function getNiveauEtudiant(): ?string
     {
-        return $this->login;
+        return $this->niveauEtudiant;
     }
 
-    public function setLogin(string $login): self
+    public function setNiveautudiant(?string $niveauEtudiant): self
     {
-        $this->login = $login;
+        $this->niveauEtudiant = $niveauEtudiant;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getFiliereEtudiant(): ?string
     {
-        return $this->password;
+        return $this->filiereEtudiant;
     }
 
-    public function setPassword(string $password): self
+    public function setFiliereEtudiant(?string $filiereEtudiant): self
     {
-        $this->password = $password;
+        $this->filiereEtudiant = $filiereEtudiant;
 
         return $this;
     }
+
+    public function getOptionEtudiant(): ?string
+    {
+        return $this->optionEtudiant;
+    }
+
+    public function setOptionEtudiant(?string $optionEtudiant): self
+    {
+        $this->optionEtudiant = $optionEtudiant;
+
+        return $this;
+    }
+    
 }
