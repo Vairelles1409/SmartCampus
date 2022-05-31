@@ -28,7 +28,7 @@ class Etudiant
     private $prenomEtudiant;
 
     /**
-     * @ORM\Column(type="string", length=12, nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $matriculeEtudiant;
 
@@ -126,7 +126,7 @@ class Etudiant
         return $this->niveauEtudiant;
     }
 
-    public function setNiveautudiant(?string $niveauEtudiant): self
+    public function setNiveauEtudiant(?string $niveauEtudiant): self
     {
         $this->niveauEtudiant = $niveauEtudiant;
 

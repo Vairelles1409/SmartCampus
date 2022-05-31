@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+ 
+{% block body %}
+	<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px; margin-left: 25%;">
+              <h1 class="card-title"> Ajouter un Etudiant</h1>
+
+              <!-- General Form Elements -->
+              {{ form_start(formET,{attr:{novalidate:'novalidate'}}) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Nom Etudiant</label>
+                  <div class="col-sm-5">
+                    {# <input type="text" class="form-control"> #}
+                    {{ form_widget(formET.nomEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                 </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Prenom Etudiant</label>
+                  <div class="col-sm-5">
+                    {# <input type="email" class="form-control"> #}
+                    {{ form_widget(formET.prenomEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Matricule</label>
+                  <div class="col-sm-5">
+                    {# <input type="email" class="form-control"> #}
+                    {{ form_widget(formET.matriculeEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Niveau</label>
+                  <div class="col-sm-5">
+                    {# <input type="email" class="form-control"> #}
+                    {{ form_widget(formET.niveauEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+                 <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Option</label>
+                  <div class="col-sm-5">
+                    {# <input type="email" class="form-control"> #}
+                    {{ form_widget(formET.optionEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Filiere</label>
+                  <div class="col-sm-5">
+                    {# <input type="email" class="form-control"> #}
+                    {{ form_widget(formET.filiereEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Adresse</label>
+                  <div class="col-sm-5">
+                    {# <input type="email" class="form-control"> #}
+                    {{ form_widget(formET.adresseEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">Numéro de Téléphone</label>
+                  <div class="col-sm-5">
+                    {# <input type="number" class="form-control"> #}
+                    {{ form_widget(formET.telephoneEtudiant,{'attr':{'class':'form-control'}}) }}
+                  </div>
+                </div>
+
+                {# <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Submit Button</label>
+                  <div class="col-sm-5">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                     <button class="btn btn-primary " type="reset" style="background-color:red;">Cancel</button>
+                  </div>
+                </div> #}
+                 <div class="col-12">
+                      <button class="btn btn-primary " type="submit"> Submit</button>
+                    </div></br>
+                    <div class="col-12">
+                      <button class="btn btn-primary " type="reset" style="background-color:red;">Cancel</button>
+                    </div>
+
+              {{ form_end(formET) }}<!-- End General Form Elements -->
+
+            </div>
+            {% block footer %}
+            {% endblock %}
+{% endblock %}

@@ -3,8 +3,12 @@
 #    controller: App\Controller\DefaultController::index
 
 index:
+   path: /
+   controller: App\Controller\AdminController::indexAdmin
+
+indexAdmin:
    path: /index
-   controller: App\Controller\UserController::indexAdmin
+   controller: App\Controller\AdminController::indexAdmin
 
 login:
    path: /login
@@ -14,3 +18,26 @@ adduser:
    path: /registration
    controller: App\Controller\RegistrationController::adduser
 
+listUser:
+   path: /listuser
+   controller: App\Controller\RegistrationController::listUser
+
+addEn:
+   path: /addEn
+   controller: App\Controller\AdminController::addEnseignant
+
+addEt:
+   path: /addEt
+   controller: App\Controller\AdminController::addEtudiant
+
+addBt:
+   path: /addBt
+   controller: App\Controller\AdminController::addBatiment
+
+addUn:
+   path: /addUn
+   controller: App\Controller\AdminController::addUniversite
+
+addSa:
+   path: /addSa
+   controller: App\Controller\AdminController::addSalle
