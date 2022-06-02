@@ -13,6 +13,7 @@ class UniversiteType extends AbstractType
     {
         $builder
             ->add('nomUniversite')
+            ->add('regionUniversite')
         ;
     }
 

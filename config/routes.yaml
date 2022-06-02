@@ -41,3 +41,7 @@ addUn:
 addSa:
    path: /addSa
    controller: App\Controller\AdminController::addSalle
+
+logout:
+   path: /logout
+   controller: App\Controller\SecurityController::logout
