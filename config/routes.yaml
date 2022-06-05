@@ -45,3 +45,7 @@ addSa:
 logout:
    path: /logout
    controller: App\Controller\SecurityController::logout
+
+reservation:
+   path: /reservation
+   controller: App\Controller\ReservationController::reservation

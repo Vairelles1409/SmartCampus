@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ path('index') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des Salles de cours</h5>
+
+                <!-- Table with stripped rows -->
+                <div style="display: flex; align-items: center;justify-content: center;">
+		<table class="table table-striped"  border="2">
+                    <thead>
+                    <tr align="center"> 
+                        <th>N° Salle</th>
+                        <th>Batiment</th>
+                        <th>Capacité</th>
+                        <th>Période</th>
+                         <th>Etat</th>
+                        <th>Action</th>
+                        <th>Localiser</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reservation in b %}
+                    {% for reservation2 in b1 %}
+                        <tr class="old gradex">
+                            <td align="center">{{reservation.numeroSalle}} </td>
+                            <td align="center">{{reservation.nomSalle }}</td>
+                            <td align="center">{{ reservation.capacite}}</td>
+                            
+                            <td>
+                                <input type="checkbox" name="m" style="margin-right:15px"/>{{ reservation2.periodeMatin}}
+                                </br><input type="checkbox" name="m" style="margin-right:15px" />{{ reservation2.periodeSoir}}
+                                </br><input type="checkbox" name="m" style="margin-right:15px"/>{{ reservation2.periodeTPE}}
+                            </td>
+                            <td align="center">{{reservation2.etat}}</td>
+                            <td align="center">
+                                <a class="btn btn-primary" href="#">Reserver</a>
+                            </td>
+                             <td align="center">
+                                <a class="btn btn-secondary" href="#">Géolocoliser la salle</a>
+                            </td
+
+
+                            
+                                
+                            {% endfor %}
+                            
+                            {#<td>{{user.accountType}}</td> #}
+                            {# <td>
+                                <a class="btn btn-danger" href="{{ path('modif_user',{'id':user.id}) }}" style="background-color:blue;">Modifier</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="{{ path('supp_user',{'id':user.id}) }}">Supprimer</a>
+                            </td> #}
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+		
+	</div>
+                <!-- End small tables -->
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+{% block footer %}
+            {% endblock %}
+{% endblock %}

@@ -18,23 +18,73 @@ class Reservation
     private $id;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
-    private $dateReservation;
+    private $periodeMatin;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $periodeSoir;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $periodeTPE;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $etat;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateReservation(): ?\DateTimeInterface
+    public function getPeriodeMatin(): ?string
     {
-        return $this->dateReservation;
+        return $this->periodeMatin;
     }
 
-    public function setDateReservation(?\DateTimeInterface $dateReservation): self
+    public function setPeriodeMatin(?string $periodeMatin): self
     {
-        $this->dateReservation = $dateReservation;
+        $this->periodeMatin = $periodeMatin;
+
+        return $this;
+    }
+
+    public function getPeriodeSoir(): ?string
+    {
+        return $this->periodeSoir;
+    }
+
+    public function setPeriodeSoir(?string $periodeSoir): self
+    {
+        $this->periodeSoir = $periodeSoir;
+
+        return $this;
+    }
+    public function getPeriodeTPE(): ?string
+    {
+        return $this->periodeTPE;
+    }
+
+    public function setPeriodeTPE(?string $periodeTPE): self
+    {
+        $this->periodeTPE = $periodeTPE;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

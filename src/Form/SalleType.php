@@ -14,6 +14,7 @@ class SalleType extends AbstractType
         $builder
             ->add('nomSalle')
             ->add('numeroSalle')
+            ->add('capacite')
             ->add('longitude')
             ->add('latitude')
             ->add('altitude')

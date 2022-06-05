@@ -23,7 +23,7 @@ class Salle
     private $nomSalle;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $numeroSalle;
 
@@ -42,6 +42,11 @@ class Salle
      */
     private $altitude;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $capacite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,12 +64,12 @@ class Salle
         return $this;
     }
 
-    public function getNumeroSalle(): ?int
+    public function getNumeroSalle(): ?string
     {
         return $this->numeroSalle;
     }
 
-    public function setNumeroSalle(int $numeroSalle): self
+    public function setNumeroSalle(string $numeroSalle): self
     {
         $this->numeroSalle = $numeroSalle;
 
@@ -103,6 +108,18 @@ class Salle
     public function setAltitude(?float $altitude): self
     {
         $this->altitude = $altitude;
+
+        return $this;
+    }
+
+    public function getCapacite(): ?int
+    {
+        return $this->capacite;
+    }
+
+    public function setCapacite(?int $capacite): self
+    {
+        $this->capacite = $capacite;
 
         return $this;
     }
