@@ -75,4 +75,13 @@ class PeriodeRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function getID($id): void
+    {
+        $em= $this->getDoctrine()->getManager();
+       $periode= $em->createQueryBuilder("SELECT libelle FROM periode WHERE id =1");
+   }
 }

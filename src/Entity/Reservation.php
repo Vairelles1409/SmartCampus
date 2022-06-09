@@ -17,74 +17,92 @@ class Reservation
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=200, nullable=true)
-     */
-    private $periodeMatin;
+    // /**
+    //  * @ORM\Column(type="string", length=200, nullable=true)
+    //  */
+    // private $periodeMatin;
+
+    // /**
+    //  * @ORM\Column(type="string", length=200, nullable=true)
+    //  */
+    // private $periodeSoir;
+
+    // /**
+    //  * @ORM\Column(type="string", length=200, nullable=true)
+    //  */
+    // private $periodeTPE;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Periode::class, inversedBy="reservation")
      */
-    private $periodeSoir;
+    private $periode;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Salle::class, inversedBy="reservations")
      */
-    private $periodeTPE;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $etat;
+    private $salle;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPeriodeMatin(): ?string
+    // public function getPeriodeMatin(): ?string
+    // {
+    //     return $this->periodeMatin;
+    // }
+
+    // public function setPeriodeMatin(?string $periodeMatin): self
+    // {
+    //     $this->periodeMatin = $periodeMatin;
+
+    //     return $this;
+    // }
+
+    // public function getPeriodeSoir(): ?string
+    // {
+    //     return $this->periodeSoir;
+    // }
+
+    // public function setPeriodeSoir(?string $periodeSoir): self
+    // {
+    //     $this->periodeSoir = $periodeSoir;
+
+    //     return $this;
+    // }
+    // public function getPeriodeTPE(): ?string
+    // {
+    //     return $this->periodeTPE;
+    // }
+
+    // public function setPeriodeTPE(?string $periodeTPE): self
+    // {
+    //     $this->periodeTPE = $periodeTPE;
+
+    //     return $this;
+    // }
+
+
+    public function getPeriode(): ?Periode
     {
-        return $this->periodeMatin;
+        return $this->periode;
     }
 
-    public function setPeriodeMatin(?string $periodeMatin): self
+    public function setPeriode(?Periode $periode): self
     {
-        $this->periodeMatin = $periodeMatin;
+        $this->periode = $periode;
 
         return $this;
     }
 
-    public function getPeriodeSoir(): ?string
+    public function getSalle(): ?Salle
     {
-        return $this->periodeSoir;
+        return $this->salle;
     }
 
-    public function setPeriodeSoir(?string $periodeSoir): self
+    public function setSalle(?Salle $salle): self
     {
-        $this->periodeSoir = $periodeSoir;
-
-        return $this;
-    }
-    public function getPeriodeTPE(): ?string
-    {
-        return $this->periodeTPE;
-    }
-
-    public function setPeriodeTPE(?string $periodeTPE): self
-    {
-        $this->periodeTPE = $periodeTPE;
-
-        return $this;
-    }
-
-    public function getEtat(): ?bool
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?bool $etat): self
-    {
-        $this->etat = $etat;
+        $this->salle = $salle;
 
         return $this;
     }

@@ -99,9 +99,6 @@ class RegistrationController extends AbstractController
             'form_title'=> 'Nouvel Utilisateur',
         'form'=>$form->createView()]);
 
-
-
-
     }
     
 }

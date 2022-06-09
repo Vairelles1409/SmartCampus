@@ -19,4 +19,9 @@ $(document).ready(function(){
         let Cl = document.getElementsByClassName(cl)[0];
         Cl.classList.toggle('bg-primary')
     }) 
+
+    // function reserver(id){
+    //     document.location.href=""
+    // }
+    modifReservation(id);
 })

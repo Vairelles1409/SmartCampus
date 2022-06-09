@@ -32,6 +32,7 @@
 		<table class="table table-bordered"  border="1" width: "10%"  >
                     <thead>
                     <tr align="center"> 
+                        <th>ID</th>
                         <th>N° Salle</th>
                         <th>Batiment</th>
                         <th>Capacité</th>
@@ -42,30 +43,37 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for reservation in b %}
-                    {% for reservation2 in b1 %}
+                    {% for salleReserver in b %}
+                    {% for periode1 in b1 %}
+                    {% for periode2 in b2 %}
+                    {% for periode3 in b3 %}
                         <tr class="old gradex">
-                            <td align="center">{{reservation.numeroSalle}} </td>
-                            <td align="center">{{reservation.nomSalle }}</td>
-                            <td align="center">{{ reservation.capacite}}</td>
+                        <td align="center">{{salleReserver.id}} </td>
+                            <td align="center">{{salleReserver.numeroSalle}} </td>
+                            <td align="center">{{salleReserver.nomSalle }}</td>
+                            <td align="center">{{salleReserver.capacite}}</td>
                             
                             <td>
-                                <input type="checkbox" name="m" style="margin-right:15px"/>{{ reservation2.periodeMatin}}
-                                </br><input type="checkbox" name="m" style="margin-right:15px"/>{{ reservation2.periodeSoir}}
-                                </br><input type="checkbox" name="m" style="margin-right:15px"/>{{ reservation2.periodeTPE}}
+                                <input type="checkbox" name="m" style="margin-right:15px" value="Matin"\>{{periode1.libelle}}
+                                </br><input type="checkbox" name="m" style="margin-right:15px" value="Midi"\>{{periode2.libelle}}
+                                </br><input type="checkbox" name="m" style="margin-right:15px" value="TPE"\>{{periode3.libelle}}
+                                {# </br><input type="checkbox" name="m" style="margin-right:15px"value="1"/>{{ periode.libelle}}
+                                </br><input type="checkbox" name="m" style="margin-right:15px"value="1"/>{{ periode.libelle}} #}
                             </td>
-                            <td align="center" class="test">{{reservation2.etat}}</td>
+                            <td align="center" class="test">{{salleReserver.etat}}</td>
                             <td align="center" >
                             {# <p id="test">This is another paragraph.</p> #}
-                                <a class="btn btn-primary reserver" href="#" >Reserver</a>
+                                <a class="btn btn-primary reserver" href="#" style="background-color:blue;">Reserver</a>
                             </td>
                              <td align="center">
-                                <a class="btn btn-secondary" href="#">Géolocoliser</a>
+                                <a class="btn btn-secondary" href="#x">Géolocoliser</a>
                             </td
 
 
                             
                                 
+                            {% endfor %}
+                            {% endfor %}
                             {% endfor %}
                             
                             {#<td>{{user.accountType}}</td> #}
