@@ -4,24 +4,43 @@ $(document).ready(function(){
     let Te = 0;
     var Tests = document.querySelectorAll('.test');
     var Reserver = document.querySelectorAll('.reserver');
+    var Reserver2= document.querySelectorAll('.reserver2');
     console.log(Tests[1])
     for(i = 0 ; i<Tests.length ;i++){
         Te = 'Te'+i
         console.log('et')
         Tests[i].classList.add(Te)
         Reserver[i].classList.add(Te)
+        Reserver2[i].classList.add(Te)
     }
-    var Rreserver = $(".reserver")
+    var Reserver = $(".reserver")
+    var Reserver2 = $(".reserver2")
     var ttests = $(".test")
-    Rreserver.click((e)=>{
+    Reserver.click((e)=>{
+        let cl = e.currentTarget.classList[e.currentTarget.classList.length - 1]
+        console.log(cl)
+        let Cl = document.getElementsByClassName(cl)[0];
+        Cl.classList.toggle('bg-danger')
+    }) 
+    Reserver2.click((e)=>{
         let cl = e.currentTarget.classList[e.currentTarget.classList.length - 1]
         console.log(cl)
         let Cl = document.getElementsByClassName(cl)[0];
         Cl.classList.toggle('bg-primary')
     }) 
+    // var idReservation = $('#choixMagasin option:selected').attr('id');
+    // $.ajax({
+    //     method: "POST",
+    //     url: "{{ path('magasin_id') }}",
+    //     data: {id: idMagasin},
+    //     success: function(data){
+    //         console.log(data);
+ 
+    //         var periode = data.periode;
+    //         console.log(donnees);
+    //     }
+    // });
 
-    // function reserver(id){
-    //     document.location.href=""
-    // }
-    modifReservation(id);
+
+    
 })

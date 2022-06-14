@@ -18,7 +18,7 @@
 
 
 
-<div class="row" style=" width:-100%;margin-left:50px;margin-top: -100px;">
+<div class="row" style=" margin-left:40px;margin-top: -200px;">
 
     <div class="col-lg-6">
 
@@ -29,6 +29,7 @@
 
                 <!-- Table with stripped rows -->
                 <div style="width:1600px;display: flex; justify-content:left;">
+            
 		<table class="table table-bordered"  border="1" width: "10%"  >
                     <thead>
                     <tr align="center"> 
@@ -43,38 +44,41 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for salleReserver in b %}
+                    {% for salleReserver in reserver %}
                     {% for periode1 in b1 %}
                     {% for periode2 in b2 %}
                     {% for periode3 in b3 %}
+                    {# {% for user in user %} #}
                         <tr class="old gradex">
                         <td align="center">{{salleReserver.id}} </td>
                             <td align="center">{{salleReserver.numeroSalle}} </td>
-                            <td align="center">{{salleReserver.nomSalle }}</td>
+                            <td align="center">{{salleReserver.nomSalle}}</td>
                             <td align="center">{{salleReserver.capacite}}</td>
-                            
                             <td>
-                                <input type="checkbox" name="m" style="margin-right:15px" value="Matin"\>{{periode1.libelle}}
-                                </br><input type="checkbox" name="m" style="margin-right:15px" value="Midi"\>{{periode2.libelle}}
+                                <input type="checkbox"name="m" style="margin-right:15px" value="Matin"\>{{periode1.libelle}}
+                                </br><input type="checkbox" name="m" style="margin-right:15px" value="Après-midi"\>{{periode2.libelle}}
                                 </br><input type="checkbox" name="m" style="margin-right:15px" value="TPE"\>{{periode3.libelle}}
                                 {# </br><input type="checkbox" name="m" style="margin-right:15px"value="1"/>{{ periode.libelle}}
                                 </br><input type="checkbox" name="m" style="margin-right:15px"value="1"/>{{ periode.libelle}} #}
                             </td>
-                            <td align="center" class="test">{{salleReserver.etat}}</td>
-                            <td align="center" >
-                            {# <p id="test">This is another paragraph.</p> #}
-                                <a class="btn btn-primary reserver" href="#" style="background-color:blue;">Reserver</a>
-                            </td>
-                             <td align="center">
-                                <a class="btn btn-secondary" href="#x">Géolocoliser</a>
-                            </td
-
-
-                            
+                                <td align="center" class="test">{{salleReserver.etat}}</td>
+                                <td align="center" >
+                                {# <a class="btn btn-primary reserver" href="" style="background-color:blue;" type="submit">Reserver</a> #}
+                                {# {% if app.user and reserver.isReservedByUserSalle(app.user) %} #}
                                 
-                            {% endfor %}
-                            {% endfor %}
-                            {% endfor %}
+                                <a class="btn btn-primary reserver" href="{{ path('app_reservation',{'id':salleReserver.id}) }}" style="background-color:blue;" type="submit"
+                                    id="choixMagasin">
+                                    Reserver
+                                </a>
+                                </br></br><a class="btn btn-primary reserver2" href="{{ path('app_reservation1',{'id':salleReserver.id}) }}"
+                                type="submit"
+                                 style="background-color:red;">
+                                Annuler</a>
+                                </td>
+                                {# {% endif %} #}
+                                <td align="center">
+                                    <a class="btn btn-secondary" href="#">Géolocoliser</a>
+                                </td>
                             
                             {#<td>{{user.accountType}}</td> #}
                             {# <td>
@@ -85,6 +89,10 @@
                             </td> #}
                         </tr>
 
+                    {# {% endfor %} #}
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
                     {% endfor %}
 
                     </tbody>

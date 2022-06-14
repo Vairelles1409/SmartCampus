@@ -49,3 +49,4 @@ logout:
 reservation:
    path: /reservation
    controller: App\Controller\ReservationController::reservation
+  

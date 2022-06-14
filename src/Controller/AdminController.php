@@ -132,7 +132,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $salle->setEtat(0);
+            $salle->setEtat('libre');
             $em = $this->getDoctrine()->getManager();
             $em->persist($salle);//Add
             $em->flush();

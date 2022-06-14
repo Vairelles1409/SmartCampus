@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservationRepository;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
@@ -41,6 +42,11 @@ class Reservation
      * @ORM\ManyToOne(targetEntity=Salle::class, inversedBy="reservations")
      */
     private $salle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -106,4 +112,43 @@ class Reservation
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Permet de savoir si une periode est choisi par un utilisateur
+     *
+     * 
+     * @return boolean
+     */
+    public function isReservedByUserPeriode (User $user): bool{
+        foreach($this->user as $periode){
+            if($periode->getUser()===$user)return true;
+        }
+        return false;
+    }
+
+    // /**
+    //  * Permet de savoir si une salle est choisi par un utilisateur
+    //  *
+    //  * @param User $user
+    //  * @return boolean
+    //  */
+    // public function isReservedByUserSalle (User $user): bool{
+    //     foreach($this->salle as $salles){
+    //         if($salles->getUser()===$user)return true;
+    //     }
+    //     return false;
+    // }
 }
+ 

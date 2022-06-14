@@ -50,7 +50,7 @@ class Salle
     private $capacite;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $etat;
 
@@ -141,12 +141,12 @@ class Salle
         return $this;
     }
 
-    public function getEtat(): ?int
+    public function getEtat(): ?string
     {
         return $this->etat;
     }
 
-    public function setEtat(int $etat): self
+    public function setEtat(string $etat): self
     {
         $this->etat = $etat;
 
