@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-
 use App\Entity\Periode;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +12,15 @@ class PeriodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('periodeRservation')
+            ->add('libelle', ChoiceType::class, [
+                'choices' => [
+                    'Matin' => 'Matin',
+                    'Midi' => 'Midi',
+                    'TPE' =>'TPE'
+                ],
+            'expanded' => true
+            ]
+        )
         ;
     }
 
@@ -23,5 +30,4 @@ class PeriodeType extends AbstractType
             'data_class' => Periode::class,
         ]);
     }
-
 }

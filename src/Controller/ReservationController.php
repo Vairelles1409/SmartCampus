@@ -51,31 +51,14 @@ class ReservationController extends AbstractController
     $reservation= new Reservation();
 
     $salle= new Salle();
-    $periode=new Periode();
-    $user=new User();
-
-    $libelle=$periode->getId();
-    $utilisateur=$user->getId();
-
      $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
-     $periode = $this->getDoctrine()->getManager()->getRepository(Periode::class)->find($id);
-     $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($id);
-        
+
         $etat=$salle->getEtat();
         if($etat=='libre'){
         $salle->setEtat('reservé') ;
         $em = $this->getDoctrine()->getManager();
         $em->persist($salle);
         $em->flush();
-        //////////////////
-       
-        $libelle;
-        $utilisateur;
-        $salle->setEtat('reservé')->getId() ;
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($reservation);
-        $em->flush();
-
 
     }
       return $this->redirectToRoute('reservation');
