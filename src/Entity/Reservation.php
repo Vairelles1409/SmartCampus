@@ -18,21 +18,6 @@ class Reservation
      */
     private $id;
 
-    // /**
-    //  * @ORM\Column(type="string", length=200, nullable=true)
-    //  */
-    // private $periodeMatin;
-
-    // /**
-    //  * @ORM\Column(type="string", length=200, nullable=true)
-    //  */
-    // private $periodeSoir;
-
-    // /**
-    //  * @ORM\Column(type="string", length=200, nullable=true)
-    //  */
-    // private $periodeTPE;
-
     /**
      * @ORM\ManyToOne(targetEntity=Periode::class, inversedBy="reservation")
      */
@@ -44,7 +29,7 @@ class Reservation
     private $salle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations",cascade={"persist"})
      */
     private $user;
 

@@ -3,23 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Periode;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Reservation;
-use App\Repository\PeriodeRepository;
 use App\Entity\Salle;
 use App\Entity\User;
-use App\Form\ReservationType;
-use App\Repository\UserRepository;
-use App\Repository\SalleRepository;
-use App\Form\SalleType;
-use App\Repository\ReservationRepository;
-use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\DependencyInjection\Container;
 class ReservationController extends AbstractController
 {
     /**
@@ -40,29 +29,74 @@ class ReservationController extends AbstractController
             "b3"=>$periode3,
         ]);
     }
+//   public function reservationEffectuer($id,$user_id,$periode_id): Response
+//   {
+//     $salle= new Salle();
+//     $idReservation=new Reservation();
+    
+//     $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
+//     $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($user_id);
+//     $periode = $this->getDoctrine()->getManager()->getRepository(Periode::class)->find($periode_id);
+
+//         $etat=$salle->getEtat();
+//         if($etat=='libre'){
+//         $salle->setEtat('reservé') ;
+//         $em = $this->getDoctrine()->getManager();
+//         $em->persist($salle);
+//         $em->flush();
+//         /////////////////////////////////////
+//         /** @var User $user */
+//         /** @var Periode $periode */
+//         $idReservation->setUser($user);
+//         $idReservation->setSalle($id);
+//         $idReservation->setPeriode($periode);
+//         $em = $this->getDoctrine()->getManager();
+//         $em->persist($idReservation);
+//         $em->flush();
+//     }
+//       return $this->redirectToRoute('reservation');
+//  }
+
   /**
    * Permet de reserver une salle
    * 
    * @Route("/reservation/{id}", name="app_reservation")
    * @return Response
    */
-  public function reservationEffectuer($id): Response
-  {
-    $reservation= new Reservation();
-
-    $salle= new Salle();
-     $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
-
+public function reservationEffectuer($id){
+  $salle= new Salle();
+  $salleReserver= new Salle();
+  $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
+/////////////////mise à jour de l'état de la salle
         $etat=$salle->getEtat();
         if($etat=='libre'){
         $salle->setEtat('reservé') ;
         $em = $this->getDoctrine()->getManager();
         $em->persist($salle);
         $em->flush();
+////////////////Recherche de l'utilisateur
+  $user= new User();
+  $user = $this->getUser();
+  $repository = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id'=> $user->getId()]);
+  ////////////////Recherche de la periode choisi
+  
+//////////////////Création de la nouvelle reservation
+  $reservation= new Reservation();
+  $salleReserver=$salle;
+  $reservation->setSalle($salleReserver);
+  $reservation->setUser($repository);
+  
+  $entityManager = $this->getDoctrine()->getManager();
+  $entityManager->persist($reservation);
+  //$entityManager->persist($reservation);
+  $entityManager->flush();
+  return new Response(
+    'Saved new Reservation with id: '.$reservation->getId()
+    .' and new Salle with id: '.$salle->getId().' for User with id: '.$user->getUsername()
 
-    }
-      return $this->redirectToRoute('reservation');
- }
+);
+}
+}
   /**
    * Permet de reserver une salle
    * 
@@ -83,5 +117,7 @@ class ReservationController extends AbstractController
     }
       return $this->redirectToRoute('reservation');
  }
+
+
 }
 
