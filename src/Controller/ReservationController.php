@@ -29,33 +29,6 @@ class ReservationController extends AbstractController
             "b3"=>$periode3,
         ]);
     }
-//   public function reservationEffectuer($id,$user_id,$periode_id): Response
-//   {
-//     $salle= new Salle();
-//     $idReservation=new Reservation();
-    
-//     $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
-//     $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($user_id);
-//     $periode = $this->getDoctrine()->getManager()->getRepository(Periode::class)->find($periode_id);
-
-//         $etat=$salle->getEtat();
-//         if($etat=='libre'){
-//         $salle->setEtat('reservé') ;
-//         $em = $this->getDoctrine()->getManager();
-//         $em->persist($salle);
-//         $em->flush();
-//         /////////////////////////////////////
-//         /** @var User $user */
-//         /** @var Periode $periode */
-//         $idReservation->setUser($user);
-//         $idReservation->setSalle($id);
-//         $idReservation->setPeriode($periode);
-//         $em = $this->getDoctrine()->getManager();
-//         $em->persist($idReservation);
-//         $em->flush();
-//     }
-//       return $this->redirectToRoute('reservation');
-//  }
 
   /**
    * Permet de reserver une salle
@@ -75,37 +48,40 @@ public function reservationEffectuer($id){
         $em->persist($salle);
         $em->flush();
 ////////////////Recherche de l'utilisateur
-  $user= new User();
+  //$user= new User();
   $user = $this->getUser();
-  $repository = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id'=> $user->getId()]);
+  $repository = $this->getDoctrine()->getRepository(User::class);
+  $userConnect=$repository->find(['id'=>$user->getId()]);
+  //$userConnect=$repository->find($id);
   ////////////////Recherche de la periode choisi
-  
-//////////////////Création de la nouvelle reservation
+  ////////////////Création de la nouvelle reservation
   $reservation= new Reservation();
   $salleReserver=$salle;
   $reservation->setSalle($salleReserver);
-  $reservation->setUser($repository);
+  $reservation->setUser($userConnect);
   
   $entityManager = $this->getDoctrine()->getManager();
   $entityManager->persist($reservation);
-  //$entityManager->persist($reservation);
   $entityManager->flush();
+
   return new Response(
     'Saved new Reservation with id: '.$reservation->getId()
-    .' and new Salle with id: '.$salle->getId().' for User with id: '.$user->getUsername()
-
-);
+    .' and new Salle with id: '.$salle->getId().' by User with id: '.$user->getUsername());
+    
+    
 }
+return $this->redirectToRoute('reservation');
 }
   /**
    * Permet de reserver une salle
    * 
-   * @Route("/reservationAnnuler/{id}", name="app_reservation1")
+   * @Route("/reservation_Annuler/{id}", name="app_reservation1")
    * @return Response
    */
   public function reservationAnnuler($id): Response
   {
-   
+    
+  ///////////////////changement d'état de la salle
     $salle= new Salle();
         $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
         $etat=$salle->getEtat();
@@ -115,9 +91,14 @@ public function reservationEffectuer($id){
         $em->persist($salle);
         $em->flush();
     }
+  /////////////////////Suppression de la reservation en BD
+        $reservation= new Reservation;
+        $ann_reservation=$reservation;
+
+        $enm = $this->getDoctrine()->getManager();
+        $enm->remove($ann_reservation);
+        $enm->flush();
       return $this->redirectToRoute('reservation');
  }
-
-
 }
 

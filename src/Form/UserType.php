@@ -16,6 +16,7 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
         ->add('accounttype', ChoiceType::class, [
             'choices' => [
@@ -35,6 +36,7 @@ class UserType extends AbstractType
         ])
         
         ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

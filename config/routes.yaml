@@ -16,7 +16,7 @@ login:
 
 adduser:
    path: /registration
-   controller: App\Controller\RegistrationController::adduser
+   controller: App\Controller\RegistrationController::add_User
 
 listUser:
    path: /listuser
@@ -44,7 +44,8 @@ addSa:
 
 logout:
    path: /logout
-   controller: App\Controller\SecurityController::logout
+   # controller: App\Controller\SecurityController::logout
+   methods: GET
 
 reservation:
    path: /reservation

@@ -37,43 +37,7 @@ class Reservation
     {
         return $this->id;
     }
-
-    // public function getPeriodeMatin(): ?string
-    // {
-    //     return $this->periodeMatin;
-    // }
-
-    // public function setPeriodeMatin(?string $periodeMatin): self
-    // {
-    //     $this->periodeMatin = $periodeMatin;
-
-    //     return $this;
-    // }
-
-    // public function getPeriodeSoir(): ?string
-    // {
-    //     return $this->periodeSoir;
-    // }
-
-    // public function setPeriodeSoir(?string $periodeSoir): self
-    // {
-    //     $this->periodeSoir = $periodeSoir;
-
-    //     return $this;
-    // }
-    // public function getPeriodeTPE(): ?string
-    // {
-    //     return $this->periodeTPE;
-    // }
-
-    // public function setPeriodeTPE(?string $periodeTPE): self
-    // {
-    //     $this->periodeTPE = $periodeTPE;
-
-    //     return $this;
-    // }
-
-
+    
     public function getPeriode(): ?Periode
     {
         return $this->periode;
@@ -110,30 +74,6 @@ class Reservation
         return $this;
     }
 
-    /**
-     * Permet de savoir si une periode est choisi par un utilisateur
-     *
-     * 
-     * @return boolean
-     */
-    public function isReservedByUserPeriode (User $user): bool{
-        foreach($this->user as $periode){
-            if($periode->getUser()===$user)return true;
-        }
-        return false;
-    }
 
-    // /**
-    //  * Permet de savoir si une salle est choisi par un utilisateur
-    //  *
-    //  * @param User $user
-    //  * @return boolean
-    //  */
-    // public function isReservedByUserSalle (User $user): bool{
-    //     foreach($this->salle as $salles){
-    //         if($salles->getUser()===$user)return true;
-    //     }
-    //     return false;
-    // }
 }
  

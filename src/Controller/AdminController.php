@@ -5,20 +5,15 @@ namespace App\Controller;
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
 use App\Entity\Universite;
-use App\Entity\Campus;
 use App\Entity\Salle;
 use App\Entity\Batiment;
-use App\Entity\Reservation;
-use App\Entity\Periode;
 ////////////////////////////////
 use App\Form\EnseignantType;
 use App\Form\EtudiantType;
 use App\Form\UniversiteType;
-use App\Form\CampusType;
 use App\Form\SalleType;
 use App\Form\BatimentType;
-use App\Form\ReservationType;
-use App\Form\PeriodeType;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,6 +29,12 @@ class AdminController extends AbstractController
     public function indexAdmin(): Response
     {
         return $this->render('admin/index.html.twig');
+        
+    $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+    // or add an optional message - seen by developers
+    $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+
     }
 
     /**
