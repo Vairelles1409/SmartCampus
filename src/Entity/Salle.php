@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\SalleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SalleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=SalleRepository::class)
@@ -182,4 +183,5 @@ class Salle
 
         return $this;
     }
+
 }

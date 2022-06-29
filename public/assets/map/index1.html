@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>SMARTCAMPUS</title>
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" /> -->
+   <link rel="stylesheet" type="text/css" href="leaflet.css"/>
+   <link rel="stylesheet" href="Control.FullScreen.css" />  
+     <script src="leaflet.js"></script>
+     <script src="Control.FullScreen.js"></script>
+     <!-- <script src="//unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script> -->
+     <script src="leaflet-search.js"></script>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script> -->
+    <script src="bundle.js"></script>
+    <!-- <a href="https://github.com/rowanwins/leaflet-easyPrint"><button class="gitButton"><i class="fa fa-github fa-lg"></i>&nbsp;&nbsp;  Download me on github</button></a>
+	<button class="manualButton" onclick="manualPrint()">Manual print</button> -->
+    
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	
+</head>
+<body>
+
+<div id="map" style="width: 100%; height: 700px;"></div>
+<script>
+
+	var map = L.map('map', {
+        fullscreenControl: true,
+        fullscreenControlOptions: {
+            position: 'topleft'
+        }
+    }).setView([5.3615692,10.4041711], 13);
+
+    // var rect = L.rectangle([[5.3569763], [10.4225605]]);
+    //     map.addLayer(rect);
+    //     rect.editing.enable();
+
+    // rect.on('edit', function() { console.log(rect.getBounds().getBBoxString()); });
+
+	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // titleSize:512,
+        // zoomOffset: -1,
+		// maxZoom: 19,
+        // minZoom: 8,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "Map data ..."}).addTo(map);
+        map.addControl(L.control.search({ position: 'bottomright' }));
+
+    // var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //     attribution: '&copy; OpenStreetMap contributors'
+    // }).addTo(map);
+
+	// var hydro = L.tileLayer.wms('http://mapapps.bgs.ac.uk/arcgis/services/HydroMap/HydroMap/MapServer/WMSServer', {
+    //     layers: 'Hydrogeology',
+    //     format: 'image/png',
+    //     transparent: true,
+    //     attribution: 'Contains British Geological Survey materials © NERC 2013',
+    //     opacity: 0.25
+    // });
+
+    // var soil = L.tileLayer.wms('http://mapapps2.bgs.ac.uk/ArcGIS/services/SoilPortal/SoilPortal/MapServer/WMSServer', {
+    //     layers: 'Soil.depth.from.boreholes',
+    //     format: 'image/png',
+    //     transparent: true,
+    //     attribution: 'Contains British Geological Survey materials © NERC 2013'
+    // });
+
+    var firstGroup = L.layerGroup([
+           L.marker([5.355358662879032,10.42623460292816]).bindPopup('Batiment A').openPopup(),
+           L.marker([5.355183411216951,10.426149107515812]).bindPopup('Salle Cisco Annexe').openPopup(), 
+           L.marker([5.355458139038192,10.426293946802616]).bindPopup('Salle GL').openPopup(),
+           L.marker([5.355180740715051,10.426269136369227]).bindPopup('Salle LIR').openPopup(),
+           L.marker([5.35537702257405 , 10.426366701722143]).bindPopup('Salle A-106').openPopup(),
+           L.marker([5.355576976307783  , 10.426416993141174]).bindPopup('Salle A-05').openPopup()
+    ]);
+
+    var secondGroup = L.layerGroup([
+           L.marker([5.3551049652186045,10.425765216350555]).bindPopup('Batiment B').openPopup(),//batiment B
+           L.marker([ 5.355029857338409,10.425804108381271]).bindPopup('Salle B003').openPopup(),//B003
+           L.marker([5.35496509764762,10.425712913274765]).bindPopup('Salle B005').openPopup(),//B00
+           L.marker([5.355094283209528,10.425896979868412]).bindPopup('Salle B007').openPopup(),//B007
+           L.marker([5.355094283209528 , 10.425896979868412]).bindPopup('Salle B105').openPopup()//B105
+        
+    ])
+
+    var thirdGroup = L.layerGroup([
+           L.marker([5.355062237181228,10.425336062908173]).bindPopup('Amphithéatre A').openPopup()
+         //  L.marker([5.355895433371351,10.425746440887451]),
+        // L.marker([5.354787175369088,10.425502359867096]),
+        // L.marker([5.3551834112169514,10.426149107515812]),
+        // L.marker([5.3554581390381921 ,10.426293946802616]),
+       
+    ]);
+
+    var fourthGroup = L.layerGroup([
+           L.marker([5.354787175369088,10.425502359867096]).bindPopup('Amphitéatre B').openPopup(),
+           L.marker([5.3548859839954535 ,10.425402782857418]).bindPopup('Salle de génie informatique 1').openPopup()
+        // L.marker([5.354787175369088,10.425502359867096]),
+        // L.marker([5.3551834112169514,10.426149107515812]),
+        // L.marker([5.3554581390381921 ,10.426293946802616]),
+        
+    ]);
+
+    var fifthGroup = L.layerGroup([
+           L.marker([5.355895433371351,10.425746440887451]).bindPopup('Atelier GMP').openPopup()
+        // L.marker([5.355895433371351,10.425746440887451]),
+        // L.marker([5.354787175369088,10.425502359867096]),
+        // L.marker([5.3551834112169514,10.426149107515812]),
+        // L.marker([5.3554581390381921 ,10.426293946802616]),
+        
+    ]);
+
+    var sixthGroup = L.layerGroup([
+           L.marker([5.354317166549295,10.425309240818024]).bindPopup('Salle de TP').openPopup(),
+           L.marker([5.354433333535541,10.425334721803665]).bindPopup('Salle de TP 3').openPopup(),
+        // L.marker([5.353704285187477,10.426305010914804]),
+           L.marker([5.3541332354426014,10.42536623775959]).bindPopup('Salle de TP 4').openPopup()
+        // L.marker([5.3554581390381921 ,10.426293946802616]),
+        
+    ]);
+
+
+
+    // const mainLayer=  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    //     //maxZoom: 18,
+    //     // minZoom:4,
+    //     id: 'mapbox/streets-v11',
+    //     tileSize: 512,
+    //     zoomOffset: -1,
+    //     accessToken: 'pk.eyJ1IjoidmFpcmVsbGVzZmsiLCJhIjoiY2wxYnI5engyMDBoNzNjcDR5cXEzenJnaiJ9.QmN39zArILqXv3A89CDSAg'
+    // });
+
+
+    L.control.layers({
+        // 'OSM': osm,
+        // 'Hydro': hydro
+    }, {
+        // 'Soil': soil,
+        'Batiment A': firstGroup,
+        'Batiment B': secondGroup,
+        'Amphitheatre A': thirdGroup,
+        'Amphitheatre B': fourthGroup,
+        'Atelier GMP': fifthGroup,
+        'Salle de TP': sixthGroup
+    }).addTo(map);
+    L.control.scale().addTo(map);
+
+    var printer = L.easyPrint({
+      		tileLayer: tiles,
+      		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      		filename: 'myMap',
+      		exportOnly: true,
+      		hideControlContainer: true
+		}).addTo(map);
+
+		function manualPrint () {
+			printer.printMap('CurrentSize', 'MyManualPrint')
+		}
+
+</script>
+
+<!-- <p class="testing">So will this boring sentence.</p>
+	<br><br> -->
+	<!-- <a href="https://github.com/rowanwins/leaflet-easyPrint"><button class="gitButton"><i class="fa fa-github fa-lg"></i>&nbsp;&nbsp;  </button></a>
+	<button class="manualButton" onclick="manualPrint()">Manual print</button> -->
+
+
+</body>
+</html>

@@ -5,11 +5,21 @@
 
             <!-- Template Main JS File -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-{# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> #}
-{# <script src="{{ asset('assets/js/jquery.js') }}"></script> #}
-{# <link href="../../web/css/bootstrap.min.css" rel="stylesheet"> #}
+            <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+            <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
-<script src="{{ asset('assets/js/reservation.js') }}"></script>
+            <!-- Template Main JS File -->
+            <script src="{{ asset('assets/js/main.js') }}"></script>
+{# <script src="{{ asset('assets/js/reservation.js') }}"></script> #}
+<link href="{{asset('assets/map')}}">
+////////////////////////////////////////////////////////////////////////
+
         
 {% endblock %}
 {% block sidebar %}
@@ -18,87 +28,65 @@
 
 
 
-<div class="row" style=" margin-left:40px;margin-top: -200px;">
+<div class="row" style=" margin-top:-260px; padding-top:300px;">
 
-    <div class="col-lg-6">
-
-        <div class="card"  style=" width:1600px;align-items: center;justify-content: center; top: 50%;transform: perspective(1px) translateY(-17%);">
+    <div class="col-lg-12">
+    {# transform: perspective(1px) translateY(-17%); justify-content: center; top: 50%;align-items: center;#}
+        <div class="card" style=" margin: auto; width:1500px; padding-top:10px;">
             <div class="card-body"> 
                 <a href="{{ path('index') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
                 <h5 class="card-title">Liste des Salles de cours</h5>
+    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+         <div class="dataTable-top">
+   <div class="dataTable-dropdown">
+         </div>
+         <div class="dataTable-search"><input class="dataTable-input" placeholder="Chercher une salle..." type="text"></div>
+   </div>
+     </div>
 
-                <!-- Table with stripped rows -->
-                <div style="width:1600px;display: flex; justify-content:left;">
-            
-		<table class="table table-bordered"  border="1" width: "10%"  >
+		<table class="table datatable"  border="1" width: "10%"  >
                     <thead>
                     <tr align="center"> 
                         <th>ID</th>
                         <th>N° Salle</th>
                         <th>Batiment</th>
                         <th>Capacité</th>
-                        <th>Période</th>
                          <th>Etat</th>
                         <th>Action</th>
                         <th>Localiser</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="reser">
                     {% for salleReserver in reserver %}
-                    {% for periode1 in b1 %}
-                    {% for periode2 in b2 %}
-                    {% for periode3 in b3 %}
-                    {# {% for user in user %} #}
                         <tr class="old gradex">
                         <td align="center">{{salleReserver.id}} </td>
                             <td align="center">{{salleReserver.numeroSalle}} </td>
                             <td align="center">{{salleReserver.nomSalle}}</td>
                             <td align="center">{{salleReserver.capacite}}</td>
-                            <td>
-                                <input type="checkbox"name="m" style="margin-right:15px" value="Matin"\>{{periode1.libelle}}
-                                </br><input type="checkbox" name="m" style="margin-right:15px" value="Après-midi"\>{{periode2.libelle}}
-                                </br><input type="checkbox" name="m" style="margin-right:15px" value="TPE"\>{{periode3.libelle}}
-                                {# </br><input type="checkbox" name="m" style="margin-right:15px"value="1"/>{{ periode.libelle}}
-                                </br><input type="checkbox" name="m" style="margin-right:15px"value="1"/>{{ periode.libelle}} #}
-                            </td>
-                                <td align="center" class="test">{{salleReserver.etat}}</td>
-                                <td align="center" >
-                                {# <a class="btn btn-primary reserver" href="" style="background-color:blue;" type="submit">Reserver</a> #}
-                                {# {% if app.user and reserver.isReservedByUserSalle(app.user) %} #}
-                                
-                                <a class="btn btn-primary reserver" href="{{ path('app_reservation',{'id':salleReserver.id}) }}" style="background-color:blue;" type="submit"
-                                    id="choixMagasin">
-                                    Reserver
-                                </a>
-                                </br></br><a class="btn btn-primary reserver2" href="{{ path('app_reservation1',{'id':salleReserver.id}) }}"
-                                type="submit"
-                                 style="background-color:red;">
-                                Annuler</a>
-                                </td>
-                                {# {% endif %} #}
+                            {% if salleReserver.etat == 'libre'%}
+                            <td align="center" class="test" style="background-color:green">{{salleReserver.etat}}</td>
+                                {% else %}
+                            <td align="center" class="test" style="background-color:red">{{salleReserver.etat}}</td>
+                            {% endif %}
                                 <td align="center">
-                                    <a class="btn btn-secondary" href="#">Géolocoliser</a>
+                                <a class="btn btn-primary reserver choixSalle" style="background-color:blue;" type="submit"
+                                    id={{ salleReserver.id}}>Reserver</a>
+
+                                </br></br>
+                                <a class="btn btn-primary reserver2" href="{{ path('app_reservation1',{'id':salleReserver.id}) }}"
+                                 type="submit"
+                                     style="background-color:red;">Annuler
+                                </a>
                                 </td>
-                            
-                            {#<td>{{user.accountType}}</td> #}
-                            {# <td>
-                                <a class="btn btn-danger" href="{{ path('modif_user',{'id':user.id}) }}" style="background-color:blue;">Modifier</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" href="{{ path('supp_user',{'id':user.id}) }}">Supprimer</a>
-                            </td> #}
+                                <td align="center">
+                                    <a class="btn btn-secondary" href="{{asset('assets/map/index1.html')}}">Géolocoliser</a>
+                                </td>
                         </tr>
-
-                    {# {% endfor %} #}
                     {% endfor %}
-                    {% endfor %}
-                    {% endfor %}
-                    {% endfor %}
-
                     </tbody>
                 </table>
 		
-	</div>
+	{# </div> #}
                 <!-- End small tables -->
 
             </div>
@@ -109,6 +97,63 @@
 
 
 </div>
+{# href="{{ path('app_reservation',{'id':salleReserver.id}) }}" #}
+
+<script>  
+$(document).ready(function(){   
+         $(".choixSalle").on("click", function(event){  
+            id  = $(this).attr('id');
+            console.log(id);
+            console.log("bjr");
+         
+            $.ajax({  
+               url:        `reservation/${id}`,  
+               type:       'POST',   
+               dataType:   'json',
+               
+               success: function(data, response) { 
+                window.location.reload();
+                console.log(response) 
+                  alert('welldone')  
+               },  
+               error : function(xhr, textStatus, errorThrown) {  
+                alert('New')
+                console.log(xhr.responseText);
+             console.log(textStatus);
+             console.log(errorThrown);
+               }  
+            });  
+         });  
+      });  
+   </script> 
+<script>
+   $(document).ready(function() {
+  $(".search").keyup(function () {
+    var searchTerm = $(".search").val();
+    var listItem = $('.results tbody').children('tr');
+    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+    
+  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
+        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+    }
+  });
+    
+  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
+    $(this).attr('visible','false');
+  });
+
+  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
+    $(this).attr('visible','true');
+  });
+
+  var jobCount = $('.results tbody tr[visible="true"]').length;
+    $('.counter').text(jobCount + ' item');
+
+  if(jobCount == '0') {$('.no-result').show();}
+    else {$('.no-result').hide();}
+		  });
+});
+</script>
 {% block footer %}
             {% endblock %}
 {% endblock %}

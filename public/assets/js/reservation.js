@@ -28,18 +28,7 @@ $(document).ready(function(){
         let Cl = document.getElementsByClassName(cl)[0];
         Cl.classList.toggle('bg-primary')
     }) 
-    // var idReservation = $('#choixMagasin option:selected').attr('id');
-    // $.ajax({
-    //     method: "POST",
-    //     url: "{{ path('magasin_id') }}",
-    //     data: {id: idMagasin},
-    //     success: function(data){
-    //         console.log(data);
- 
-    //         var periode = data.periode;
-    //         console.log(donnees);
-    //     }
-    // });
+
 
 
     

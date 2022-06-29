@@ -18,10 +18,10 @@ class Reservation
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Periode::class, inversedBy="reservation")
-     */
-    private $periode;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity=Periode::class, inversedBy="reservation")
+    //  */
+    // private $periode;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salle::class, inversedBy="reservations")
@@ -38,17 +38,17 @@ class Reservation
         return $this->id;
     }
     
-    public function getPeriode(): ?Periode
-    {
-        return $this->periode;
-    }
+    // public function getPeriode(): ?Periode
+    // {
+    //     return $this->periode;
+    // }
 
-    public function setPeriode(?Periode $periode): self
-    {
-        $this->periode = $periode;
+    // public function setPeriode(?Periode $periode): self
+    // {
+    //     $this->periode = $periode;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getSalle(): ?Salle
     {
@@ -73,7 +73,19 @@ class Reservation
 
         return $this;
     }
+    // /**
+    //  * Permet de connaître l'utilisateur qui à reserver une salle
+    //  *
+    //  * @param User $user
+    //  * @return boolean
+    //  */
+    // public function isReservedByUser(User $user): bool{
+    //     foreach($this->salle as $salle){
+    //         if($salle->getUser()===$user) return true;
+    //     }
+    //     return \false; 
+    // }
 
 
 }
- 
+  

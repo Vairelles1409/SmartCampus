@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Periode;
 use App\Entity\Reservation;
 use App\Entity\Salle;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 class ReservationController extends AbstractController
@@ -18,15 +20,17 @@ class ReservationController extends AbstractController
 
         $salleReserver = $this->getDoctrine()->getManager()->getRepository(Salle::class)->findAll();
         $user=$this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
-        $periode1 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>1]);
-        $periode2 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>2]);
-        $periode3 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>3]);
+        $reservation=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findAll();
+        // $periode1 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>1]);
+        // $periode2 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>2]);
+        // $periode3 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>3]);
         return $this->render('reservation/listReservation.html.twig', [
             "user"=>$user,
             "reserver"=>$salleReserver,
-            "b1"=>$periode1,
-            "b2"=>$periode2,
-            "b3"=>$periode3,
+            "reserver2"=>$reservation
+            // "b1"=>$periode1,
+            // "b2"=>$periode2,
+            // "b3"=>$periode3,
         ]);
     }
 
@@ -36,10 +40,10 @@ class ReservationController extends AbstractController
    * @Route("/reservation/{id}", name="app_reservation")
    * @return Response
    */
-public function reservationEffectuer($id){
+public function reservationEffectuer($id, Request $request){
   $salle= new Salle();
   $salleReserver= new Salle();
-  $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
+  $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id); 
 /////////////////mise à jour de l'état de la salle
         $etat=$salle->getEtat();
         if($etat=='libre'){
@@ -63,14 +67,21 @@ public function reservationEffectuer($id){
   $entityManager = $this->getDoctrine()->getManager();
   $entityManager->persist($reservation);
   $entityManager->flush();
+  return $this->redirectToRoute('reservation');
+  // return new Response(
+  //   'Saved new Reservation with id: '.$reservation->getId()
+  //   .' and new Salle with id: '.$salle->getId().' by User with id: '.$user->getUsername());  
+}  
+/////////////////Script Ajax
+$salleAjax = $this->getDoctrine()->getManager()->getRepository(Salle::class)->findAll();
+if ($request->isXmlHttpRequest()) {  
+  $jsonData = array();    
+  return new JsonResponse($jsonData); 
 
-  return new Response(
-    'Saved new Reservation with id: '.$reservation->getId()
-    .' and new Salle with id: '.$salle->getId().' by User with id: '.$user->getUsername());
-    
-    
+} else { 
+  return $this->render('reservation/listReservation.html.twig'); 
 }
-return $this->redirectToRoute('reservation');
+
 }
   /**
    * Permet de reserver une salle
@@ -80,9 +91,13 @@ return $this->redirectToRoute('reservation');
    */
   public function reservationAnnuler($id): Response
   {
-    
+    $user = $this->getUser();
+  
+    $repository = $this->getDoctrine()->getRepository(User::class);
+    $userConnect=$repository->find(['id'=>$user->getId()]);
   ///////////////////changement d'état de la salle
     $salle= new Salle();
+
         $salle = $this->getDoctrine()->getManager()->getRepository(Salle::class)->find($id);
         $etat=$salle->getEtat();
         if($etat=='reservé'){
@@ -98,7 +113,12 @@ return $this->redirectToRoute('reservation');
         $enm = $this->getDoctrine()->getManager();
         $enm->remove($ann_reservation);
         $enm->flush();
-      return $this->redirectToRoute('reservation');
+     
+      // return new Response(
+      //   'Reservartion annulé id: '.$reservation->getId()
+      //   .'de la salle id: '.$salle->getId().' by User with id: '.$user->getUsername());
+        return $this->redirectToRoute('reservation'); 
  }
+  //return $this->redirectToRoute('reservation');
 }
 
