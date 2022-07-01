@@ -109,6 +109,7 @@ class LoginFormAnthenticatorAuthenticator extends AbstractFormLoginAuthenticator
 
     }
     
+    
 
     protected function getLoginUrl()
     {
