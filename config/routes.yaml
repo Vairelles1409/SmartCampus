@@ -4,11 +4,15 @@
 
 index:
    path: /
+   controller: App\Controller\SecurityController::acceuil
+
+admin:
+   path: /admin
    controller: App\Controller\AdminController::indexAdmin
 
-indexAdmin:
-   path: /index
-   controller: App\Controller\AdminController::indexAdmin
+member:
+   path: /member
+   controller: App\Controller\RegistrationController::indexUser
 
 login:
    path: /login

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Repository;
-
 use App\Entity\User;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -63,6 +63,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+    
 
     // /**
     //  * @return User[] Returns an array of User objects
@@ -79,7 +80,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult()
         ;
     }
-    */
+    /*
 
     /*
     public function findOneBySomeField($value): ?User
@@ -91,5 +92,77 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult()
         ;
     }
-    */
+    /**
+     * @see UserRepositoryInterface::findOneByUsername
+     */
+    public function findOneByUsername($username)
+    {
+        return $this->findOneBy(array('username' => $username));
+    }
+
+    /**
+     * Loads the user for the given username.
+     *
+     * This method must throw UsernameNotFoundException if the user is not
+     * found.
+     *
+     * @param  string $username The username
+     * @return AccountInterface A user instance
+     * @throws UsernameNotFoundException if the user is not found
+     */
+    public function loadUserByUsername($username)
+    {
+        $user = $this->findOneByUsername($username);
+
+        if(!$user) {
+            throw new UsernameNotFoundException(sprintf('The user "%s" does not exist'));
+        }
+
+        return $user;
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByEmail
+     */
+    public function findOneByEmail($email)
+    {
+        return $this->findOneBy(array('email' => $email));
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByUsernameOrEmail
+     */
+    public function findOneByUsernameOrEmail($usernameOrEmail)
+    {
+        if ($this->isValidEmail($usernameOrEmail)) {
+            return $this->findOneByEmail($usernameOrEmail);
+        }
+
+        return $this->findOneByUsername($usernameOrEmail);
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByConfirmationToken
+     */
+    public function findOneByConfirmationToken($token)
+    {
+        return $this->findOneBy(array('confirmationToken' => $token));
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByRememberMeToken
+     */
+    public function findOneByRememberMeToken($token)
+    {
+        if(empty($token)) {
+            return null;
+        }
+
+        return $this->findOneBy(array('rememberMeToken' => $token));
+    }
+
+    protected function isValidEmail($email)
+    {
+        return preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email);
+    }
 }

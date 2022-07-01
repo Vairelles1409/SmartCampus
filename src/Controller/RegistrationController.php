@@ -11,12 +11,20 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
+        /**
+     *  @Route("/indexUser", name="for_user")
+     */
+   public function indexUser()
+   {
+    return $this->render('user/indexUser.html.twig');
+    
+   }
     /**
      *  @Route("/listUser", name="display_user")
      */
    public function index()
    {
-
+    $this->denyAccessUnlessGranted('ROLE_ADMIN');
        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
        return $this->render('user/listUser.html.twig', [
            "b"=>$user,
@@ -69,6 +77,7 @@ class RegistrationController extends AbstractController
      */
     public function suppressionUser(User $user): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
@@ -83,6 +92,7 @@ class RegistrationController extends AbstractController
      */
     public function modifUser(Request $request,$id): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($id);
 
         $form = $this->createForm(UserType::class,$user);

@@ -28,12 +28,8 @@ class AdminController extends AbstractController
      */
     public function indexAdmin(): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('admin/index.html.twig');
-        
-    $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-    // or add an optional message - seen by developers
-    $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
 
     }
 
@@ -42,6 +38,7 @@ class AdminController extends AbstractController
      */
     public function addEnseignant(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $enseignant = new Enseignant();
 
         $form = $this->createForm(EnseignantType::class,$enseignant);
@@ -63,6 +60,7 @@ class AdminController extends AbstractController
      */
     public function addEtudiant(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $etudiant = new Etudiant();
 
         $form = $this->createForm(EtudiantType::class,$etudiant);
@@ -84,6 +82,7 @@ class AdminController extends AbstractController
      */
     public function addBatiment(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $batiment = new Batiment();
 
         $form = $this->createForm(BatimentType::class,$batiment);
@@ -105,6 +104,7 @@ class AdminController extends AbstractController
      */
     public function addUniversite(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $universite = new Universite();
 
         $form = $this->createForm(UniversiteType::class,$universite);
@@ -126,6 +126,7 @@ class AdminController extends AbstractController
      */
     public function addSalle(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $salle = new Salle();
 
         $form = $this->createForm(SalleType::class,$salle);

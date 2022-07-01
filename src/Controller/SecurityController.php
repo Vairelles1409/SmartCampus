@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,8 +32,13 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $user= new User();
+        if($user->getRoles()==['ROLE_USER']){
+            return $this->redirectToRoute('user/indexUser.html.twig');
+        }
+        else return $this->redirectToRoute('admin/index.html.twig');
+
     }
 
     /**
@@ -43,6 +48,16 @@ class SecurityController extends AbstractController
     {
         // throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
         return $this->redirectToRoute('login');
+
+    }
+
+    /**
+     * @Route("/acceuil", name="app_logout")
+     */
+    public function acceuil(): Response
+    {
+        // throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        return $this->render('acceuil.html.twig');
 
     }
 }

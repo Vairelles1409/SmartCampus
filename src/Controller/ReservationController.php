@@ -21,16 +21,10 @@ class ReservationController extends AbstractController
         $salleReserver = $this->getDoctrine()->getManager()->getRepository(Salle::class)->findAll();
         $user=$this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
         $reservation=$this->getDoctrine()->getManager()->getRepository(Reservation::class)->findAll();
-        // $periode1 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>1]);
-        // $periode2 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>2]);
-        // $periode3 = $this->getDoctrine()->getManager()->getRepository(Periode::class)->findBy(['id'=>3]);
         return $this->render('reservation/listReservation.html.twig', [
             "user"=>$user,
             "reserver"=>$salleReserver,
             "reserver2"=>$reservation
-            // "b1"=>$periode1,
-            // "b2"=>$periode2,
-            // "b3"=>$periode3,
         ]);
     }
 
