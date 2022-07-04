@@ -7,6 +7,7 @@ use App\Entity\Etudiant;
 use App\Entity\Universite;
 use App\Entity\Salle;
 use App\Entity\Batiment;
+use App\Entity\Reservation;
 ////////////////////////////////
 use App\Form\EnseignantType;
 use App\Form\EtudiantType;
@@ -143,4 +144,16 @@ class AdminController extends AbstractController
         }
         return $this->render('admin/ajoutSA.html.twig',['formSA'=>$form->createView()]);
     }
+
+    /**
+     *  @Route("/listSalleReserver", name="display_user")
+     */
+   public function salleReserver()
+   {
+    $this->denyAccessUnlessGranted('ROLE_ADMIN');
+       $salleReserver = $this->getDoctrine()->getManager()->getRepository(Reservation::class)->findAll();
+       return $this->render('reservation/listSalleReserve.html.twig', [
+           "salle"=>$salleReserver,
+       ]);
+   }
 }

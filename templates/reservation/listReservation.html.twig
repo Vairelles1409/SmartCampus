@@ -2,6 +2,8 @@
 
 
 {% block javascripts %}
+{# <link rel="stylesheet" type="text/css" href="{{asset('assets/css/datatables.min.css')}}"/>
+<script type="text/javascript" src="{{ asset('assets/js/datatables.min.js') }}"></script> #}
 
             <!-- Template Main JS File -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
@@ -40,15 +42,16 @@
          <div class="dataTable-top">
    <div class="dataTable-dropdown">
          </div>
-         <div class="dataTable-search"><input class="dataTable-input" placeholder="Chercher une salle..." type="text"></div>
+         <div class="dataTable-search">
+         <input type="text" id="myInput" class="dataTable-input" placeholder="Chercher une salle..." type="text" onkeyup="myFunction()"></div>
    </div>
      </div>
 
-		<table class="table datatable"  border="1" width: "10%"  >
+		<table class="table datatable"  border="1" width: "10%"  id="myTable">
                     <thead>
                     <tr align="center"> 
                         <th>ID</th>
-                        <th>N° Salle</th>
+                        <th>N°/ Nom Salle</th>
                         <th>Batiment</th>
                         <th>Capacité</th>
                          <th>Etat</th>
@@ -97,8 +100,30 @@
 
 
 </div>
-{# href="{{ path('app_reservation',{'id':salleReserver.id}) }}" #}
 
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 <script>  
 $(document).ready(function(){   
          $(".choixSalle").on("click", function(event){  

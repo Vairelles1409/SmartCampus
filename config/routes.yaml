@@ -26,6 +26,10 @@ listUser:
    path: /listuser
    controller: App\Controller\RegistrationController::listUser
 
+salleReserver:
+   path: /salleReserver
+   controller: App\Controller\AdminController::salleReserver
+
 addEn:
    path: /addEn
    controller: App\Controller\AdminController::addEnseignant

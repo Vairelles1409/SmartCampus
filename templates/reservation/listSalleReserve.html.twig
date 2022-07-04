@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ path('admin') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h5 class="card-title">Liste des salles reservées</h5>
+
+                <!-- Table with stripped rows -->
+                <div style="display: flex; align-items: center;justify-content: center;">
+		<table class="table table-striped"  border="1">
+                    <thead>
+                    <tr> 
+                        <th>ID</th>
+                        <th>Batiment</th>
+                        <th>Numéro de la Salle</th>
+                        <th>Nom Utilisateur</th>
+                        <th>Email</th>
+                        <th>Type Utilisateur</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for salleReserver in salle %}
+                        <tr>
+                            <td>{{salleReserver.id}} </td>
+                            <td>{{salleReserver.salle.nomSalle }}</td>
+                            <td>{{salleReserver.salle.numeroSalle }}</td>
+                            <td>{{salleReserver.user.name}}</td>
+                            <td>{{salleReserver.user.email}}</td>
+                            <td>{{salleReserver.user.accountType}}</td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+		
+	</div>
+                <!-- End small tables -->
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+{% block footer %}
+            {% endblock %}
+{% endblock %}
